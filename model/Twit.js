@@ -25,7 +25,6 @@ const twitSchema = mongoose.Schema({
 }, { timestamps: true })
 
 
-
 module.exports = mongoose.model('Twit', twitSchema)
 
 

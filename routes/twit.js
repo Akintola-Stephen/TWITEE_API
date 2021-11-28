@@ -10,8 +10,7 @@ const {
 } = require('../controllers/twit')
 
 
-
 router.route('/').post(createPost).get(getAllPosts)
 router.route('/:id').get(getTwit).delete(deleteTwit).patch(commentToPost)
 
-module.export = router
+module.exports = router

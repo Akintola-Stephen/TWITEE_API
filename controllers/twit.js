@@ -7,20 +7,20 @@ const { notFound } = require('../middleware/notFound')
 const Twit = require('../model/Twit')
 
 
-const createPost = asyncWrap(async (req, res) => {
+exports.createPost = asyncWrap(async (req, res) => {
   req.body.createdBy = req.user.userId
   const post = await Twit.create(req.body)
   res.status(StatusCodes.CREATED).json({ post })
 })
 
 
-const getAllPosts = asyncWrap(async (req, res) => {
+exports.getAllPosts = asyncWrap(async (req, res) => {
   const posts = Twit.find({ createdBy: req.user.uderId }).sort('createdAt')
   res.status(StatusCodes.OK).json({ posts, count: posts.length })
 })
 
 
-const commentToPost = asyncWrap(async (req, res) => {
+exports.commentToPost = asyncWrap(async (req, res) => {
   // res.send('Just posted a comment now!')
   const {
     body: { comment, like },
@@ -40,7 +40,7 @@ const commentToPost = asyncWrap(async (req, res) => {
 })
 
 
-const getTwit = asyncWrap(async (req, res, next) => {
+exports.getTwit = asyncWrap(async (req, res, next) => {
   const { id: taskID } = req.params
   const twit = await Twit.findOne({ _id: taskID })
   if (!twit) {
@@ -52,7 +52,7 @@ const getTwit = asyncWrap(async (req, res, next) => {
 })
 
 
-const deleteTwit = asyncWrap(async (req, res) => {
+exports.deleteTwit = asyncWrap(async (req, res) => {
   const {
     user: { userId },
     params: { id: twitId }
@@ -68,10 +68,10 @@ const deleteTwit = asyncWrap(async (req, res) => {
 
 
 
-module.export = {
-  createPost,
-  getAllPosts,
-  commentToPost,
-  getTwit,
-  deleteTwit,
-}
+// module.export = {
+//   createPost,
+//   getAllPosts,
+//   commentToPost,
+//   getTwit,
+//   deleteTwit,
+// }
