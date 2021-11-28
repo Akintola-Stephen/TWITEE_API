@@ -30,21 +30,23 @@ const userSchema = mongoose.Schema({
   date_created: { type: Date, default: Date.now },
 })
 
-userSchema.pre('save', async (next) => {
+userSchema.pre('save', async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt)
   next()
 })
 
-userSchema.methods.getName = () => {
+userSchema.methods.createJWT = () => {
+  return jwt.sign({ userId: this._id, email: this.email }, process.env.JWT_SECRET, { expiresIn: '1d' })
+}
+
+userSchema.methods.getName = function () {
   return this.name
 }
 
-userSchema.methods.createJWT = () => {
-  return jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1d' })
-}
 
-userSchema.methods.getEmail = () => {
+
+userSchema.methods.getEmail = function () {
   return this.email
 }
 

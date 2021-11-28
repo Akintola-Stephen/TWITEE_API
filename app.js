@@ -19,7 +19,7 @@ app.use(express.json())
 
 
 app.use('/api/user', authRoute)
-app.use('/api/user', authenticateUser, twitRoute)
+app.use('/api/twits', authenticateUser, twitRoute)
 
 
 app.use(notFound)

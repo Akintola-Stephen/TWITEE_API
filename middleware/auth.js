@@ -1,10 +1,9 @@
-const { unAthenticated } = require('../errors/unAuthenticated')
-// const { CustomAPIError, createCustomError } = require('../errors/custom-error')
+const unAthenticated = require('../errors/unAuthenticated')
 const User = require('../model/User')
 const jwt = require('jsonwebtoken')
 
 
-exports.authenticationMiddleWare = async (req, res, next) => {
+const authenticationMiddleWare = async (req, res, next) => {
   const authHeader = req.headers.authorization
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     throw new unAthenticated('No token provided')
@@ -23,3 +22,5 @@ exports.authenticationMiddleWare = async (req, res, next) => {
     throw new unAthenticated('Authentication invalid')
   }
 }
+
+module.exports = authenticationMiddleWare
