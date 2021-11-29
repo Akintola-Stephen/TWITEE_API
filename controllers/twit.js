@@ -15,7 +15,7 @@ exports.createPost = asyncWrap(async (req, res) => {
 
 
 exports.getAllPosts = asyncWrap(async (req, res) => {
-  const posts = Twit.find({ createdBy: req.user.uderId }).sort('createdAt')
+  const posts = Twit.find({ createdBy: req.user.userId }).sort('createdAt')
   res.status(StatusCodes.OK).json({ posts, count: posts.length })
 })
 
@@ -67,11 +67,3 @@ exports.deleteTwit = asyncWrap(async (req, res) => {
 })
 
 
-
-// module.export = {
-//   createPost,
-//   getAllPosts,
-//   commentToPost,
-//   getTwit,
-//   deleteTwit,
-// }

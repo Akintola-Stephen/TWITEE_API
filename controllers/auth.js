@@ -14,8 +14,8 @@ exports.register = async (req, res) => {
 
 
 exports.login = async (req, res) => {
-  const { username, password } = req.body
-  if (!username || !password) {
+  const { email, password } = req.body
+  if (!email || !password) {
     throw new BadRequest('Please provide email and password', 400)
   }
 
@@ -30,6 +30,7 @@ exports.login = async (req, res) => {
     throw new unAthenticated('Invalid Credentials')
   }
 
+  //  Compare Password
   const token = user.createJWT()
   return res.status(StatusCodes.OK).json({ user: { name: user.name }, token })
 }

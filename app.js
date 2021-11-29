@@ -3,8 +3,6 @@ const express = require('express');
 const conn = require('./db/connect')
 const app = express()
 
-app.use(express.json())
-
 // Router Imports
 const authRoute = require('./routes/auth')
 const twitRoute = require('./routes/twit')
@@ -14,13 +12,10 @@ const notFound = require('./middleware/notFound')
 const errorHandlerMiddleWare = require('./middleware/errorHandler')
 const authenticateUser = require('./middleware/auth')
 
-
 app.use(express.json())
-
 
 app.use('/api/user', authRoute)
 app.use('/api/twits', authenticateUser, twitRoute)
-
 
 app.use(notFound)
 app.use(errorHandlerMiddleWare)

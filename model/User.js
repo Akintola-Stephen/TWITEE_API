@@ -36,7 +36,7 @@ userSchema.pre('save', async function (next) {
   next()
 })
 
-userSchema.methods.createJWT = () => {
+userSchema.methods.createJWT = function () {
   return jwt.sign({ userId: this._id, email: this.email }, process.env.JWT_SECRET, { expiresIn: '1d' })
 }
 
@@ -50,7 +50,7 @@ userSchema.methods.getEmail = function () {
   return this.email
 }
 
-userSchema.methods.comparePassword = async (userPassword) => {
+userSchema.methods.comparePassword = async function (userPassword) {
   const isMatch = await bcrypt.compare(userPassword, this.password)
   return isMatch
 }
